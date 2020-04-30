@@ -1,0 +1,16 @@
+export default {
+  s3: {
+    REGION: "us-east-1",
+    BUCKET: "notes-app-tutorial-uploading-bucket",
+  },
+  apiGateway: {
+    REGION: "us-east-1",
+    URL: "https://s94cwbwkg0.execute-api.us-east-1.amazonaws.com/prod",
+  },
+  cognito: {
+    REGION: "us-east-1",
+    USER_POOL_ID: "us-east-1_6Djvj5Tq9",
+    APP_CLIENT_ID: "5jnhtp1a57mj337tpsrojicqpu",
+    IDENTITY_POOL_ID: "us-east-1:9465fe33-4eae-4b86-bb44-716c534097cd",
+  },
+};
