@@ -5,6 +5,7 @@ import LoaderButton from "../components/LoaderButton";
 import { onError } from "../libs/errorLib";
 import config from "../config";
 import { API } from "aws-amplify";
+import { s3Upload } from "../libs/awsLib";
 import "./NewNote.css";
 
 export default function NewNote() {
@@ -36,7 +37,9 @@ export default function NewNote() {
     setIsLoading(true);
 
     try {
-      await createNote({ content });
+      const attachment = file.current ? await s3Upload(file.current) : null;
+
+      await createNote({ content, attachment });
       history.push("/");
     } catch (e) {
       onError(e);
