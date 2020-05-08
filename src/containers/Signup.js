@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Auth } from "aws-amplify";
 import { useHistory } from "react-router-dom";
-import styled from "styled-components";
+// import styled from "styled-components";
 import {
   HelpBlock,
   FormGroup,
@@ -13,7 +13,7 @@ import { useAppContext } from "../libs/contextLib";
 import { useFormFields } from "../libs/hooksLib";
 import { onError } from "../libs/errorLib";
 import "./Signup.css";
-import { Test2 } from "./Test2";
+// import { Test2 } from "./Test2";
 
 export default function Signup() {
   const [fields, handleFieldChange] = useFormFields({
