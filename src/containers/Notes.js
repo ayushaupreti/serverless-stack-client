@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { API, Storage } from "aws-amplify";
 import { onError } from "../libs/errorLib";
-import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import LoaderButton from "../components/LoaderButton";
 import config from "../config";
 import { s3Upload } from "../libs/awsLib";
@@ -130,7 +130,7 @@ export default function Notes() {
           </FormGroup>
           {note.attachment && (
             <FormGroup>
-              <ControlLabel>Attachment</ControlLabel>
+              <FormLabel>Attachment</FormLabel>
               <FormControl.Static>
                 <a
                   target="_blank"
@@ -143,7 +143,7 @@ export default function Notes() {
             </FormGroup>
           )}
           <FormGroup controlId="file">
-            {!note.attachment && <ControlLabel>Attachment</ControlLabel>}
+            {!note.attachment && <FormLabel>Attachment</FormLabel>}
             <FormControl onChange={handleFileChange} type="file" />
           </FormGroup>
           <LoaderButton

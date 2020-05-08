@@ -8,7 +8,7 @@ import Routes from "./Routes";
 import { AppContext } from "./libs/contextLib";
 import { Auth } from "aws-amplify";
 
-function App() {
+export default function App() {
   const [isAuthenticated, userHasAuthenticated] = useState(false);
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const history = useHistory();
@@ -77,4 +77,4 @@ function App() {
   );
 }
 
-export default App;
+// export default App;
