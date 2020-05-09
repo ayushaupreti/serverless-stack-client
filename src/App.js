@@ -52,18 +52,15 @@ function App() {
             <Nav pullRight>
               {isAuthenticated ? (
                 <>
-                  <LinkContainer to="/settings">
-                    <NavItem>Settings</NavItem>
-                  </LinkContainer>
                   <NavItem onClick={handleLogout}>Logout</NavItem>
                 </>
               ) : (
                 <>
-                  <LinkContainer to="/signup">
-                    <NavItem>Signup</NavItem>
-                  </LinkContainer>
                   <LinkContainer to="/login">
                     <NavItem>Login</NavItem>
+                  </LinkContainer>
+                  <LinkContainer to="/signup">
+                    <NavItem>Signup</NavItem>
                   </LinkContainer>
                 </>
               )}
