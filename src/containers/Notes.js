@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { API, Storage } from "aws-amplify";
 import { onError } from "../libs/errorLib";
-import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import { FormGroup, Form, Input, Label } from "reactstrap";
 import LoaderButton from "../components/LoaderButton";
 import config from "../config";
 import { s3Upload } from "../libs/awsLib";
@@ -120,18 +120,18 @@ export default function Notes() {
   return (
     <div className="Notes">
       {note && (
-        <form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit}>
           <FormGroup controlId="content" className="mt-3">
-            <FormControl
+            <Input
               value={content}
-              componentClass="textarea"
+              type="textarea"
               onChange={(e) => setContent(e.target.value)}
             />
           </FormGroup>
           {note.attachment && (
             <FormGroup>
-              <ControlLabel>Attachment</ControlLabel>
-              <FormControl.Static>
+              <Label>Attachment</Label>
+              <Input plaintext>
                 <a
                   target="_blank"
                   rel="noopener noreferrer"
@@ -139,18 +139,18 @@ export default function Notes() {
                 >
                   {formatFilename(note.attachment)}
                 </a>
-              </FormControl.Static>
+              </Input>
             </FormGroup>
           )}
           <FormGroup controlId="file">
-            {!note.attachment && <ControlLabel>Attachment</ControlLabel>}
-            <FormControl onChange={handleFileChange} type="file" />
+            {!note.attachment && <Label>Attachment</Label>}
+            <Input onChange={handleFileChange} type="file" />
           </FormGroup>
           <LoaderButton
             block
             type="submit"
             bsSize="large"
-            bsStyle="primary"
+            bsStyle="success"
             isLoading={isLoading}
             disabled={!validateForm()}
           >
@@ -159,13 +159,13 @@ export default function Notes() {
           <LoaderButton
             block
             bsSize="large"
-            bsStyle="danger"
+            bsStyle="info"
             onClick={handleDelete}
             isLoading={isDeleting}
           >
             Delete
           </LoaderButton>
-        </form>
+        </Form>
       )}
     </div>
   );

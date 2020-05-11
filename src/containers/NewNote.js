@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import { Form, Input, Label, FormGroup } from "reactstrap";
 import LoaderButton from "../components/LoaderButton";
 import { onError } from "../libs/errorLib";
 import config from "../config";
@@ -55,17 +55,17 @@ export default function NewNote() {
 
   return (
     <div className="NewNote">
-      <form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <FormGroup controlId="content" className="mt-3">
-          <FormControl
+          <Input
             value={content}
-            componentClass="textarea"
+            type="textarea"
             onChange={(e) => setContent(e.target.value)}
           />
         </FormGroup>
         <FormGroup controlId="file">
-          <ControlLabel>Attachment</ControlLabel>
-          <FormControl onChange={handleFileChange} type="file" />
+          <Label>Attachment</Label>
+          <Input onChange={handleFileChange} type="file" />
         </FormGroup>
         <LoaderButton
           block
@@ -77,7 +77,7 @@ export default function NewNote() {
         >
           Create
         </LoaderButton>
-      </form>
+      </Form>
     </div>
   );
 }
