@@ -1,12 +1,7 @@
 import React, { useState } from "react";
 import { Auth } from "aws-amplify";
 import { useHistory } from "react-router-dom";
-import {
-  HelpBlock,
-  FormGroup,
-  FormControl,
-  ControlLabel,
-} from "react-bootstrap";
+import { Form, FormGroup, FormText, Input, Label } from "reactstrap";
 import LoaderButton from "../components/LoaderButton";
 import { useAppContext } from "../libs/contextLib";
 import { useFormFields } from "../libs/hooksLib";
@@ -14,27 +9,29 @@ import { onError } from "../libs/errorLib";
 import "./Signup.css";
 
 export default function Signup() {
-  const [fields, handleFieldChange] = useFormFields({
-    email: "",
-    password: "",
-    confirmPassword: "",
-    confirmationCode: "",
-  });
+  // const [fields, handleFieldChange] = useFormFields({
+  //   email: "",
+  //   password: "",
+  //   confirmPassword: "",
+  //   confirmationCode: "",
+  // });
   const history = useHistory();
   const [newUser, setNewUser] = useState(null);
   const { userHasAuthenticated } = useAppContext();
   const [isLoading, setIsLoading] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmedPassword, setConfirmedPassword] = useState("");
+  const [confirmationCode, setConfirmationCode] = useState("");
 
   function validateForm() {
     return (
-      fields.email.length > 0 &&
-      fields.password.length > 0 &&
-      fields.password === fields.confirmPassword
+      email.length > 0 && password.length > 0 && password === confirmedPassword
     );
   }
 
   function validateConfirmationForm() {
-    return fields.confirmationCode.length > 0;
+    return confirmationCode.length > 0;
   }
 
   async function handleSubmit(event) {
@@ -44,8 +41,8 @@ export default function Signup() {
 
     try {
       const newUser = await Auth.signUp({
-        username: fields.email,
-        password: fields.password,
+        username: email,
+        password: password,
       });
       setIsLoading(false);
       setNewUser(newUser);
@@ -61,8 +58,8 @@ export default function Signup() {
     setIsLoading(true);
 
     try {
-      await Auth.confirmSignUp(fields.email, fields.confirmationCode);
-      await Auth.signIn(fields.email, fields.password);
+      await Auth.confirmSignUp(email, confirmationCode);
+      await Auth.signIn(email, password);
 
       userHasAuthenticated(true);
       history.push("/");
@@ -74,16 +71,18 @@ export default function Signup() {
 
   function renderConfirmationForm() {
     return (
-      <form onSubmit={handleConfirmationSubmit}>
+      <Form onSubmit={handleConfirmationSubmit}>
         <FormGroup controlId="confirmationCode" bsSize="large">
-          <ControlLabel>Confirmation Code</ControlLabel>
-          <FormControl
+          <Label>Confirmation Code</Label>
+          <Input
             autoFocus
             type="tel"
-            onChange={handleFieldChange}
-            value={fields.confirmationCode}
+            value={confirmationCode}
+            onChange={(e) => {
+              setConfirmationCode(e.target.value);
+            }}
           />
-          <HelpBlock>Please check your email for the code.</HelpBlock>
+          <FormText>Please check your email for the code.</FormText>
         </FormGroup>
         <LoaderButton
           block
@@ -94,36 +93,41 @@ export default function Signup() {
         >
           Verify
         </LoaderButton>
-      </form>
+      </Form>
     );
   }
 
   function renderForm() {
     return (
-      <form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <FormGroup controlId="email" bsSize="large">
-          <ControlLabel>Email</ControlLabel>
-          <FormControl
-            autoFocus
+          <Label>Email</Label>
+          <Input
             type="email"
-            value={fields.email}
-            onChange={handleFieldChange}
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
           />
         </FormGroup>
         <FormGroup controlId="password" bsSize="large">
-          <ControlLabel>Password</ControlLabel>
-          <FormControl
+          <Label>Password</Label>
+          <Input
             type="password"
-            value={fields.password}
-            onChange={handleFieldChange}
+            value={password}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
           />
         </FormGroup>
         <FormGroup controlId="confirmPassword" bsSize="large">
-          <ControlLabel>Confirm Password</ControlLabel>
-          <FormControl
+          <Label>Confirm Password</Label>
+          <Input
             type="password"
-            onChange={handleFieldChange}
-            value={fields.confirmPassword}
+            value={confirmedPassword}
+            onChange={(e) => {
+              setConfirmedPassword(e.target.value);
+            }}
           />
         </FormGroup>
         <LoaderButton
@@ -135,7 +139,7 @@ export default function Signup() {
         >
           Signup
         </LoaderButton>
-      </form>
+      </Form>
     );
   }
 
