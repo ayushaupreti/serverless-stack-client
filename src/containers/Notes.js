@@ -121,7 +121,7 @@ export default function Notes() {
     <div className="Notes">
       {note && (
         <form onSubmit={handleSubmit}>
-          <FormGroup controlId="content">
+          <FormGroup controlId="content" className="mt-3">
             <FormControl
               value={content}
               componentClass="textarea"

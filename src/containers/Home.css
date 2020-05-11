@@ -24,6 +24,10 @@
   color: #666;
 }
 
+.Home .notes div {
+  padding-top: 20px;
+}
+
 .Home .lander div {
   padding-top: 20px;
 }

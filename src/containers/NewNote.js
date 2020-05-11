@@ -56,7 +56,7 @@ export default function NewNote() {
   return (
     <div className="NewNote">
       <form onSubmit={handleSubmit}>
-        <FormGroup controlId="content">
+        <FormGroup controlId="content" className="mt-3">
           <FormControl
             value={content}
             componentClass="textarea"

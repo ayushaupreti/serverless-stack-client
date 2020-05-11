@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { PageHeader, ListGroup, ListGroupItem } from "react-bootstrap";
+import { ListGroup, ListGroupItem, Badge } from "reactstrap";
 import { useAppContext } from "../libs/contextLib";
 import { onError } from "../libs/errorLib";
 import { API } from "aws-amplify";
@@ -39,17 +39,20 @@ export default function Home() {
     return [{}].concat(notes).map((note, i) =>
       i !== 0 ? (
         <LinkContainer key={note.noteId} to={`/notes/${note.noteId}`}>
-          <ListGroupItem header={note.content.trim().split("\n")[0]}>
-            {"Created: " + new Date(note.createdAt).toLocaleString()}
+          <ListGroupItem>
+            {note.content.trim().split("\n")[0]}
+            <Badge pill className="ml-3">
+              {" "}
+              {"Created: " + new Date(note.createdAt).toLocaleString()}{" "}
+            </Badge>
           </ListGroupItem>
         </LinkContainer>
       ) : (
         <LinkContainer key="new" to="/notes/new">
-          <ListGroupItem>
-            <h4>
-              <b>{"\uFF0B"}</b> Create a new note
-            </h4>
-          </ListGroupItem>
+          {/* <ListGroupItem> Create a new note </ListGroupItem> */}
+          <h4 className="mt-2">
+            <b>{"\uFF0B"}</b> Create a new note
+          </h4>
         </LinkContainer>
       )
     );
@@ -58,7 +61,7 @@ export default function Home() {
   function renderLander() {
     return (
       <div className="lander">
-        <h1>Scratch</h1>
+        <h1>Notes</h1>
         <p>A simple note taking app</p>
         <div>
           <Link to="/login" className="btn btn-info btn-lg">
@@ -75,7 +78,6 @@ export default function Home() {
   function renderNotes() {
     return (
       <div className="notes">
-        <PageHeader>Your Notes</PageHeader>
         <ListGroup>{!isLoading && renderNotesList(notes)}</ListGroup>
       </div>
     );

@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
-// import { Navbar, Nav, NavItem } from "react-bootstrap";
-// import { Navbar, Nav, NavItem } from "reactstrap";
 import {
   Collapse,
   Navbar,
@@ -10,11 +8,6 @@ import {
   Nav,
   NavItem,
   NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  NavbarText,
 } from "reactstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { onError } from "./libs/errorLib";
@@ -58,68 +51,22 @@ function App() {
 
   return (
     !isAuthenticating && (
-      // <div className="App container">
-      //   <Navbar fluid collapseOnSelect>
-      //     <Navbar.Header>
-      //       <Navbar.Brand>
-      //         <Link to="/">Scratch</Link>
-      //       </Navbar.Brand>
-      //       <Navbar.Toggle />
-      //     </Navbar.Header>
-      //     <Navbar.Collapse>
-      //       <Nav pullRight>
-      //         {isAuthenticated ? (
-      //           <>
-      //             <NavItem onClick={handleLogout}>Logout</NavItem>
-      //           </>
-      //         ) : (
-      //           <>
-      //             <LinkContainer to="/login">
-      //               <NavItem>Login</NavItem>
-      //             </LinkContainer>
-      //             <LinkContainer to="/signup">
-      //               <NavItem>Signup</NavItem>
-      //             </LinkContainer>
-      //           </>
-      //         )}
-      //       </Nav>
-      //     </Navbar.Collapse>
-      //   </Navbar>
-      //   <ErrorBoundary>
-      //     <AppContext.Provider
-      //       value={{ isAuthenticated, userHasAuthenticated }}
-      //     >
-      //       <Routes />
-      //     </AppContext.Provider>
-      //   </ErrorBoundary>
-      // </div>
       <div className="App container">
-        <Navbar color="light" light expand="md">
-          <NavbarBrand href="/">reactstrap</NavbarBrand>
+        <Navbar fluid color="light" light expand="md">
+          <NavbarBrand href="/"> Home </NavbarBrand>
           <NavbarToggler onClick={toggle} />
           <Collapse isOpen={isOpen} navbar>
-            <Nav className="mr-auto" navbar>
+            <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink href="/components/">Components</NavLink>
+                {isAuthenticated ? (
+                  <>
+                    <NavLink onClick={handleLogout}>Logout</NavLink>
+                  </>
+                ) : (
+                  <></>
+                )}
               </NavItem>
-              <NavItem>
-                <NavLink href="https://github.com/reactstrap/reactstrap">
-                  GitHub
-                </NavLink>
-              </NavItem>
-              <UncontrolledDropdown nav inNavbar>
-                <DropdownToggle nav caret>
-                  Options
-                </DropdownToggle>
-                <DropdownMenu right>
-                  <DropdownItem>Option 1</DropdownItem>
-                  <DropdownItem>Option 2</DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem>Reset</DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown>
             </Nav>
-            <NavbarText>Simple Text</NavbarText>
           </Collapse>
         </Navbar>
         <ErrorBoundary>
