@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, FormGroup, FormText, Input, Label } from "reactstrap";
+import { Form, FormGroup, FormFeedback, Input, Label } from "reactstrap";
 import LoaderButton from "../components/LoaderButton";
 import { Auth } from "aws-amplify";
 import { useAppContext } from "../libs/contextLib";
@@ -11,10 +11,16 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [emailError, setEmailError] = useState(false);
 
   function validateForm() {
-    return email.length > 0 && password.length > 0;
+    return !emailError && password.length > 0;
   }
+
+  const keyEmailPress = (e) => {
+    var re = /^[^\W^_][\w]*[._-]?[\w]*[^\W^_][@][\w]+[^!@.][_-]?([.][a-zA-Z]{2,})+$/;
+    setEmailError(!re.test(email) && email !== "");
+  };
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -39,10 +45,13 @@ export default function Login() {
             autoFocus
             type="email"
             value={email}
+            invalid={emailError}
+            onKeyUp={(e) => keyEmailPress(e)}
             onChange={(e) => {
               setEmail(e.target.value);
             }}
           />
+          <FormFeedback invalid>Not a valid email.</FormFeedback>
         </FormGroup>
         <FormGroup controlId="password" bsSize="large">
           <Label>Password</Label>
