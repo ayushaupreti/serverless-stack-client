@@ -131,7 +131,7 @@ export default function Notes() {
           {note.attachment && (
             <FormGroup>
               <Label>Attachment</Label>
-              <Input plaintext>
+              <Input type="file">
                 <a
                   target="_blank"
                   rel="noopener noreferrer"
@@ -142,10 +142,10 @@ export default function Notes() {
               </Input>
             </FormGroup>
           )}
-          <FormGroup controlId="file">
+          {/* <FormGroup controlId="file">
             {!note.attachment && <Label>Attachment</Label>}
             <Input onChange={handleFileChange} type="file" />
-          </FormGroup>
+          </FormGroup> */}
           <LoaderButton
             block
             type="submit"
