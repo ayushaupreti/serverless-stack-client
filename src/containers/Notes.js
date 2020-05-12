@@ -2,7 +2,17 @@ import React, { useRef, useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { API, Storage } from "aws-amplify";
 import { onError } from "../libs/errorLib";
-import { FormGroup, Form, Input, Label } from "reactstrap";
+import {
+  FormGroup,
+  Form,
+  Input,
+  Label,
+  Button,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+} from "reactstrap";
 import LoaderButton from "../components/LoaderButton";
 import config from "../config";
 import { s3Upload } from "../libs/awsLib";
@@ -16,6 +26,8 @@ export default function Notes() {
   const [content, setContent] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [modal, setModal] = useState(false);
+  const toggle = () => setModal(!modal);
 
   useEffect(() => {
     function loadNote() {
@@ -98,14 +110,6 @@ export default function Notes() {
   async function handleDelete(event) {
     event.preventDefault();
 
-    const confirmed = window.confirm(
-      "Are you sure you want to delete this note?"
-    );
-
-    if (!confirmed) {
-      return;
-    }
-
     setIsDeleting(true);
 
     try {
@@ -156,15 +160,31 @@ export default function Notes() {
           >
             Save
           </LoaderButton>
-          <LoaderButton
+          <Button
             block
             bsSize="large"
             bsStyle="info"
-            onClick={handleDelete}
-            isLoading={isDeleting}
+            onClick={toggle}
+            // isLoading={isDeleting}
           >
             Delete
-          </LoaderButton>
+          </Button>
+          <Modal isOpen={modal} toggle={toggle}>
+            <ModalHeader toggle={toggle}>
+              Are you sure you want to delete?
+            </ModalHeader>
+            <ModalBody>
+              Once you delete this note, you can't get it back.
+            </ModalBody>
+            <ModalFooter>
+              <Button color="primary" onClick={handleDelete}>
+                Yes, delete
+              </Button>{" "}
+              <Button color="secondary" onClick={toggle}>
+                Cancel
+              </Button>
+            </ModalFooter>
+          </Modal>
         </Form>
       )}
     </div>
