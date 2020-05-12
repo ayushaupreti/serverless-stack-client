@@ -5,6 +5,7 @@ import {
   Form,
   FormGroup,
   FormText,
+  FormFeedback,
   Input,
   Label,
   UncontrolledTooltip,
@@ -24,13 +25,24 @@ export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmedPassword, setConfirmedPassword] = useState("");
+  const [emailError, setEmailError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
+  const [repeatPasswordError, setRepeatPasswordError] = useState(false);
   const [confirmationCode, setConfirmationCode] = useState("");
 
   function validateForm() {
-    return (
-      email.length > 0 && password.length > 0 && password === confirmedPassword
-    );
+    return !emailError && !passwordError && !repeatPasswordError;
   }
+
+  const keyEmailPress = (e) => {
+    var re = /^[^\W^_][\w]*[._-]?[\w]*[^\W^_][@][\w]+[^!@.][_-]?([.][a-zA-Z]{2,})+$/;
+    setEmailError(!re.test(email) && email !== "");
+  };
+
+  const keyPasswordPress = (e) => {
+    var re = /^(?=.*[\d])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*])[\w!@#$%^&*]{8,}$/;
+    setPasswordError(!re.test(password) && password !== "");
+  };
 
   function validateConfirmationForm() {
     return confirmationCode.length > 0;
@@ -107,10 +119,13 @@ export default function Signup() {
           <Input
             type="email"
             value={email}
+            invalid={emailError}
+            onKeyUp={(e) => keyEmailPress(e)}
             onChange={(e) => {
               setEmail(e.target.value);
             }}
           />
+          <FormFeedback invalid>Not a valid email.</FormFeedback>
         </FormGroup>
         <FormGroup controlId="password" bsSize="large">
           <Label>Password</Label>
@@ -118,6 +133,8 @@ export default function Signup() {
             className="float-left"
             type="password"
             value={password}
+            invalid={passwordError}
+            onKeyUp={(e) => keyPasswordPress(e)}
             onChange={(e) => {
               setPassword(e.target.value);
             }}
@@ -132,19 +149,30 @@ export default function Signup() {
             target="UncontrolledTooltipExample"
           >
             Please input a password with at least 1 uppercase letter, 1
-            lowercase letter, 1 number, 1 special character and a minimum length
-            of 8.
+            lowercase letter, 1 number, 1 special character, and a minimum
+            length of 8.
           </UncontrolledTooltip>
+          <FormFeedback invalid>
+            Password should have 1 uppercase letter, 1 lowercase letter, 1
+            number, 1 special character, and a minimum length of 8.
+          </FormFeedback>
         </FormGroup>
         <FormGroup controlId="confirmPassword" bsSize="large">
           <Label className="mt-3">Confirm Password</Label>
           <Input
             type="password"
             value={confirmedPassword}
+            invalid={repeatPasswordError}
+            onKeyUp={(e) => {
+              setRepeatPasswordError(
+                password != confirmedPassword && confirmedPassword !== ""
+              );
+            }}
             onChange={(e) => {
               setConfirmedPassword(e.target.value);
             }}
           />
+          <FormFeedback invalid>Passwords do not match.</FormFeedback>
         </FormGroup>
         <LoaderButton
           block
