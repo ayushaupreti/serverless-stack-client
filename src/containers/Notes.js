@@ -160,22 +160,12 @@ export default function Notes() {
           >
             Save
           </LoaderButton>
-          <Button
-            block
-            bsSize="large"
-            bsStyle="info"
-            onClick={toggle}
-            // isLoading={isDeleting}
-          >
+          <Button block bsSize="large" bsStyle="info" onClick={toggle}>
             Delete
           </Button>
           <Modal isOpen={modal} toggle={toggle}>
-            <ModalHeader toggle={toggle}>
-              Are you sure you want to delete?
-            </ModalHeader>
-            <ModalBody>
-              Once you delete this note, you can't get it back.
-            </ModalBody>
+            <ModalHeader toggle={toggle}>Delete Note?</ModalHeader>
+            <ModalBody>Are you sure you want to delete this note?</ModalBody>
             <ModalFooter>
               <Button color="primary" onClick={handleDelete}>
                 Yes, delete

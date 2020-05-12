@@ -1,7 +1,16 @@
 import React, { useState } from "react";
 import { Auth } from "aws-amplify";
 import { useHistory } from "react-router-dom";
-import { Form, FormGroup, FormText, Input, Label } from "reactstrap";
+import {
+  Form,
+  FormGroup,
+  FormText,
+  Input,
+  Label,
+  UncontrolledTooltip,
+} from "reactstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
 import LoaderButton from "../components/LoaderButton";
 import { useAppContext } from "../libs/contextLib";
 import { onError } from "../libs/errorLib";
@@ -106,15 +115,29 @@ export default function Signup() {
         <FormGroup controlId="password" bsSize="large">
           <Label>Password</Label>
           <Input
+            className="float-left"
             type="password"
             value={password}
             onChange={(e) => {
               setPassword(e.target.value);
             }}
           />
+          <FontAwesomeIcon
+            className="ml-2"
+            id="UncontrolledTooltipExample"
+            icon={faQuestionCircle}
+          />
+          <UncontrolledTooltip
+            placement="right"
+            target="UncontrolledTooltipExample"
+          >
+            Please input a password with at least 1 uppercase letter, 1
+            lowercase letter, 1 number, 1 special character and a minimum length
+            of 8.
+          </UncontrolledTooltip>
         </FormGroup>
         <FormGroup controlId="confirmPassword" bsSize="large">
-          <Label>Confirm Password</Label>
+          <Label className="mt-3">Confirm Password</Label>
           <Input
             type="password"
             value={confirmedPassword}
