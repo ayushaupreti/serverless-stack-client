@@ -142,10 +142,10 @@ export default function Notes() {
               </Input>
             </FormGroup>
           )}
-          {/* <FormGroup controlId="file">
+          <FormGroup controlId="file">
             {!note.attachment && <Label>Attachment</Label>}
             <Input onChange={handleFileChange} type="file" />
-          </FormGroup> */}
+          </FormGroup>
           <LoaderButton
             block
             type="submit"

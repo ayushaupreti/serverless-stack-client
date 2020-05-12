@@ -65,10 +65,10 @@ export default function Home() {
         <p>A simple note taking app</p>
         <div>
           <Link to="/login" className="btn btn-info btn-lg">
-            Login
+            Log In
           </Link>
           <Link to="/signup" className="btn btn-success btn-lg">
-            Signup
+            Sign Up
           </Link>
         </div>
       </div>

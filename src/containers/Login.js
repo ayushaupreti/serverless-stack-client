@@ -61,7 +61,7 @@ export default function Login() {
           isLoading={isLoading}
           disabled={!validateForm()}
         >
-          Login
+          Log In
         </LoaderButton>
       </Form>
     </div>

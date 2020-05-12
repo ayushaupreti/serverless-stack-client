@@ -60,7 +60,7 @@ function App() {
               <NavItem>
                 {isAuthenticated ? (
                   <>
-                    <NavLink onClick={handleLogout}>Logout</NavLink>
+                    <NavLink onClick={handleLogout}>Log Out</NavLink>
                   </>
                 ) : (
                   <></>
