@@ -133,44 +133,18 @@ export default function Notes() {
             />
           </FormGroup>
           {note.attachment && (
-            <FormGroup controlId="file">
-              <Label>Attachment</Label>
-              <Input type="file">
-                <a
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href={note.attachmentURL}
-                >
-                  {formatFilename(note.attachment)}
-                </a>
-              </Input>
-            </FormGroup>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href={note.attachmentURL}
+            >
+              {formatFilename(note.attachment)}
+            </a>
           )}
-          <FormGroup controlId="file">
+          <FormGroup className="mt-3" controlId="file">
             {!note.attachment && <Label>Attachment</Label>}
             <Input onChange={handleFileChange} type="file" />
           </FormGroup>
-          {/* <FormGroup>
-            {note.attachment ? (
-              <>
-                <Label>Attachment</Label>
-                <Input type="file">
-                  <a
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href={note.attachmentURL}
-                  >
-                    {formatFilename(note.attachment)}
-                  </a>
-                </Input>
-              </>
-            ) : (
-              <>
-                <Label>Attachment</Label>
-                <Input onChange={handleFileChange} type="file" />
-              </>
-            )}
-          </FormGroup> */}
           <LoaderButton
             block
             type="submit"
