@@ -1,3 +1,6 @@
+To view fully deployed application, please visit notes-app.ayusha.net
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
